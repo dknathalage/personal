@@ -8,7 +8,7 @@ image:
   repository: dknathalage/personal
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "svc-front"
+  tag: "svc-web"
 
 imagePullSecrets: [{ name: "regcred" }]
 nameOverride: ""
@@ -39,8 +39,10 @@ securityContext:
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
+  targetPort: 80
+  nodePort: 3000
 
 ingress:
   enabled: false
