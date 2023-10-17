@@ -24,8 +24,7 @@ jobs:
 
       - name: Build and push
         run: |
-          CHANGED_DIRS=$(git diff --name-only origin/main HEAD | grep services | cut -d/ -f2 | uniq)
-          for DIR in $CHANGED_DIRS; do
+          for DIR in $(git diff --name-only origin/main HEAD | grep services | cut -d/ -f2 | uniq); do
             docker build -t $DOCKER_USERNAME/personal:$DIR services/$DIR
             docker push $DOCKER_USERNAME/personal:$DIR
           done
