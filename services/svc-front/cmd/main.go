@@ -6,7 +6,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hello World!,asdklask",
+			"message": "Hello World!",
 		})
 	})
 	router.Run(":80")
