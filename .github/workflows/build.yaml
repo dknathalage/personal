@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and push
         run: |
-          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep services | cut -d/ -f2 | uniq)
+          CHANGED_DIRS=$(git diff --name-only HEAD~1 HEAD | grep services | cut -d/ -f2 | uniq)
           for DIR in $CHANGED_DIRS; do
             docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/personal:$DIR --push services/$DIR
           done
