@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v1
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -24,8 +24,7 @@ jobs:
 
       - name: Build and push
         run: |
-          PREVIOUS_COMMIT=$(git log --skip=1 -n 1 --pretty=format:"%H")
-          CHANGED_DIRS=$(git diff --name-only $PREVIOUS_COMMIT HEAD | grep services | cut -d/ -f2 | uniq)
+          CHANGED_DIRS=$(git diff --name-only HEAD~1 HEAD | grep services | cut -d/ -f2 | uniq)
           echo "Changed directories: $CHANGED_DIRS"
           for DIR in $CHANGED_DIRS; do
             docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/$DIR:$GITHUB_SHA --push services/$DIR
