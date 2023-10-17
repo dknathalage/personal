@@ -24,9 +24,7 @@ jobs:
 
       - name: Build and push
         run: |
-          CHANGED_DIRS=$(git diff --dirstat=files,0 HEAD^..HEAD services/ | cut -d '%' -f 2 | cut -d '/' -f 2)
+          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep services | cut -d/ -f2 | uniq)
           for DIR in $CHANGED_DIRS; do
-            IMAGE_NAME="dknathalage/personal:$DIR"
-            docker build -t $IMAGE_NAME services/$DIR
-            docker push $IMAGE_NAME
+            docker buildx build --platform linux/amd64 -t $DOCKER_USERNAME/personal:$DIR --push services/$DIR
           done
