@@ -34,9 +34,9 @@ jobs:
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" > gcp_credentials.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=gcp_credentials.json" >> $GITHUB_ENV
-          echo "GCP_CREDENTIALS=gcp_credentials.json" >> $GITHUB_ENV
-          echo "GCP_PROJECT=${{ secrets.GCP_PROJECT }}" >> $GITHUB_ENV
-          echo "GCP_REGION=${{ secrets.GCP_REGION }}" >> $GITHUB_ENV
+          echo "gcp_credentials=gcp_credentials.json" >> $GITHUB_ENV
+          echo "gcp_project=${{ secrets.GCP_PROJECT }}" >> $GITHUB_ENV
+          echo "gcp_region=${{ secrets.GCP_REGION }}" >> $GITHUB_ENV
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
