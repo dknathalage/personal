@@ -35,8 +35,7 @@ jobs:
 
       - name: Set env vars
         run: |
-          echo ${{ secrets.GCP_CREDENTIALS }} > gcp_credentials.json
-          export gcp_credentials=gcp_credentials.json >> $GITHUB_ENV
+          export gcp_credentials=${{ secrets.GCP_CREDENTIALS }} >> $GITHUB_ENV
           export gcp_project=${{ secrets.GCP_PROJECT }} >> $GITHUB_ENV
           export gcp_region=${{ secrets.GCP_REGION }} >> $GITHUB_ENV
 

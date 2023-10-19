@@ -21,7 +21,7 @@ locals {
 
 variable "gcp_project" {
   default     = ""
-  description = "GCP Project ID "
+  description = "GCP Project ID"
 }
 
 variable "gcp_region" {
