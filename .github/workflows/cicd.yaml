@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,7 +29,8 @@ jobs:
           for DIR in $CHANGED_DIRS; do
             docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/personal:$DIR --push services/$DIR
           done
-  deploy:
+          
+  helm-install:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
