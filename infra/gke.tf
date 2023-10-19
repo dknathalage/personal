@@ -18,7 +18,7 @@ resource "google_container_node_pool" "default" {
   initial_node_count = 1
   autoscaling {
     min_node_count = 1
-    max_node_count = 1
+    max_node_count = 2
   }
 
   management {
