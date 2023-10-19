@@ -54,4 +54,4 @@ jobs:
       - name: Terraform Apply
         run: |
           cd infra
-          terraform apply -var="gcp_project=${{ secrets.GCP_PROJECT }}" -var="gcp_region=${{ secrets.GCP_REGION }}" -var="gcp_credentials='${{ secrets.GCP_SA_KEY }}'" -auto-approve 
+          terraform apply  -auto-approve  -var="gcp_project='${{ secrets.GCP_PROJECT }}'" -var="gcp_region='${{ secrets.GCP_REGION }}'" -var="gcp_credentials='${{ secrets.GCP_SA_KEY }}'"
