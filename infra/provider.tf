@@ -11,6 +11,10 @@ terraform {
       version = "4.51.0"
     }
   }
+  backend "gcs" {
+    bucket = "workload-bucket-personal"
+    prefix = "terraform/state"
+  }
 }
 
 locals {
@@ -20,7 +24,7 @@ locals {
 }
 
 variable "gcp_project" {
-  default     = ""
+  default     = "" 
   description = "GCP Project ID"
 }
 
