@@ -43,7 +43,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Initialize
-        run: |
+        run: | 
           cd infra
           terraform init
 
