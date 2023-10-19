@@ -35,9 +35,8 @@ jobs:
 
       - name: Set env vars
         run: |
-          export gcp_credentials=${{ secrets.GCP_CREDENTIALS }} >> $GITHUB_ENV
-          export gcp_project=${{ secrets.GCP_PROJECT }} >> $GITHUB_ENV
-          export gcp_region=${{ secrets.GCP_REGION }} >> $GITHUB_ENV
+          echo ${{ secrets.GCP_CREDENTIALS }} > gcp_credentials.json
+          cat gcp_credentials.json
 
       - name: Terraform Initialize
         run: |
