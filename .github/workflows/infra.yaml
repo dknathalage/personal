@@ -21,12 +21,12 @@ jobs:
       - name: Terraform Initialize
         run: |
           cd infra
-          terraform init -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }}" -var "gcp_sa_key=${{ secrets.GCP_SA_KEY }}"
+          terraform init
 
       - name: Terraform Validate
         run: |
           cd infra
-          terraform validate -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }} -var "gcp_sa_key=${{ secrets.GCP_SA_KEY }}"
+          terraform validate
 
       - name: Terraform Apply
         run: |
