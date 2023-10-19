@@ -28,7 +28,7 @@ resource "google_container_node_pool" "default" {
 
   node_config {
     preemptible  = true
-    machine_type = "e2-micro"
+    machine_type = "e2-small"
     disk_size_gb = 10
     disk_type    = "pd-standard"
   }
