@@ -24,10 +24,16 @@ jobs:
           echo "GCP_REGION=${{ secrets.GCP_REGION }}" >> $GITHUB_ENV
 
       - name: Terraform Initialize
-        run: terraform init -backend-config="bucket=${{ secrets.GCP_SA_KEY }}" ./infra
+        run: |
+          cd infra
+          terraform init -backend-config="bucket=${{ secrets.GCP_SA_KEY }}"
 
       - name: Terraform Validate
-        run: terraform validate ./infra
+        run: |
+          cd infra
+          terraform validate ./infra
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve ./infra
+        run: |
+          cd infra
+          terraform apply -auto-approve ./infra
