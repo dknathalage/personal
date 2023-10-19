@@ -7,6 +7,21 @@ on:
     paths:
       - "infra/**"
 
+# variable "gcp_project" {
+#   default     = ""
+#   description = "GCP Project ID"
+# }
+
+# variable "gcp_region" {
+#   default     = ""
+#   description = "GCP Region"
+# }
+
+# variable "gcp_credentials" {
+#   default     = ""
+#   description = "GCP Credentials"
+# }
+
 jobs:
   infra:
     runs-on: ubuntu-latest
@@ -17,6 +32,13 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+
+      - name: Set env vars
+        run: |
+          echo ${{ secrets.GCP_CREDENTIALS }} > gcp_credentials.json
+          export gcp_credntials=gcp_credentials.json >> $GITHUB_ENV
+          export gcp_project=${{ secrets.GCP_PROJECT }} >> $GITHUB_ENV
+          export gcp_region=${{ secrets.GCP_REGION }} >> $GITHUB_ENV
 
       - name: Terraform Initialize
         run: |
@@ -31,4 +53,4 @@ jobs:
       - name: Terraform Apply
         run: |
           cd infra
-          terraform apply -auto-approve -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }}" -var "gcp_credentials=${{ secrets.GCP_SA_KEY }}"
+          terraform apply -auto-approve
