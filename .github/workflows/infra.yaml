@@ -36,7 +36,9 @@ jobs:
       - name: Set env vars
         run: |
           echo ${{ secrets.GCP_SA_KEY }} > gcp_credentials.json
-          cat gcp_credentials.json
+          export GCP_CREDENTIALS=gcp_credentials.json
+          export GCP_PROJECT=${{ secrets.GCP_PROJECT }}
+          export GCP_REGION=${{ secrets.GCP_REGION }}
 
       - name: Terraform Initialize
         run: |
