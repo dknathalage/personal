@@ -1,7 +1,6 @@
 provider "google" {
-  project     = local.gcp_project
-  region      = local.gcp_region
-  credentials = file(local.gcp_credentials)
+  project = local.gcp_project
+  region  = local.gcp_region
 }
 
 terraform {
