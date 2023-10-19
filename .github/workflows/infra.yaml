@@ -4,23 +4,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "infra/**"
-
-# variable "gcp_project" {
-#   default     = ""
-#   description = "GCP Project ID"
-# }
-
-# variable "gcp_region" {
-#   default     = ""
-#   description = "GCP Region"
-# }
-
-# variable "gcp_credentials" {
-#   default     = ""
-#   description = "GCP Credentials"
-# }
+    paths:
+      - "infra/**"
 
 jobs:
   infra:
