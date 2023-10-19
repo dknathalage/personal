@@ -9,7 +9,7 @@ resource "google_container_cluster" "default" {
 }
 
 resource "google_container_node_pool" "default" {
-  name     = "workload-pool"
+  name     = "workload-pool" 
   location = local.gcp_region
   cluster  = google_container_cluster.default.name
 
