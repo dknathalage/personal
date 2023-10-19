@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "infra/**"
+    # paths:
+    #   - "infra/**"
 
 # variable "gcp_project" {
 #   default     = ""
@@ -35,7 +35,7 @@ jobs:
 
       - name: Set env vars
         run: |
-          echo ${{ secrets.GCP_CREDENTIALS }} > gcp_credentials.json
+          echo ${{ secrets.GCP_SA_KEY }} > gcp_credentials.json
           cat gcp_credentials.json
 
       - name: Terraform Initialize
