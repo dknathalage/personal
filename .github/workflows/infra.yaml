@@ -18,22 +18,17 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Configure Environment Variables
-        run: |
-          echo "GCP_PROJECT=${{ secrets.GCP_PROJECT }}" >> $GITHUB_ENV
-          echo "GCP_REGION=${{ secrets.GCP_REGION }}" >> $GITHUB_ENV
-
       - name: Terraform Initialize
         run: |
           cd infra
-          terraform init -backend-config="bucket=${{ secrets.GCP_SA_KEY }}"
+          terraform init -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }} -var "gcp_sa_key=${{ secrets.GCP_SA_KEY }}"
 
       - name: Terraform Validate
         run: |
           cd infra
-          terraform validate
+          terraform validate -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }} -var "gcp_sa_key=${{ secrets.GCP_SA_KEY }}"
 
       - name: Terraform Apply
         run: |
           cd infra
-          terraform apply -auto-approve
+          terraform apply -auto-approve -var "gcp_project=${{ secrets.GCP_PROJECT }}" -var "gcp_region=${{ secrets.GCP_REGION }} -var "gcp_sa_key=${{ secrets.GCP_SA_KEY }}"

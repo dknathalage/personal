@@ -1,6 +1,7 @@
 provider "google" {
-  project = local.gcp_project
-  region  = local.gcp_region
+  project     = local.gcp_project
+  region      = local.gcp_region
+  credentials = var.gcp_credentials
 }
 
 terraform {
@@ -27,6 +28,9 @@ variable "gcp_region" {
   description = "GCP Region"
 }
 
-
+variable "gcp_credentials" {
+  default     = ""
+  description = "GCP Credentials"
+}
 
 
