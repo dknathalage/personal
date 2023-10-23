@@ -1,0 +1,43 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  id: 'Fetch Repository'
+  args: ['fetch', 'origin', 'master']
+
+- name: 'gcr.io/cloud-builders/git'
+  id: 'Get Previous Commit'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    - |
+      git log --pretty=format:'%H' -n 2 > /workspace/commits.txt
+      PREVIOUS_COMMIT_SHA=$(sed -n '2p' /workspace/commits.txt)
+      echo "PREVIOUS_COMMIT_SHA=$PREVIOUS_COMMIT_SHA" >> /workspace/env_vars.txt
+
+- name: 'gcr.io/cloud-builders/git'
+  id: 'Get Current Commit'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    - |
+      COMMIT_SHA=$(git rev-parse HEAD)
+      echo "COMMIT_SHA=$COMMIT_SHA" >> /workspace/env_vars.txt
+
+- name: 'ubuntu'
+  id: 'Detect Changes'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    - |
+      source /workspace/env_vars.txt
+      /workspace/detect_changes.sh > /workspace/changed_dirs.txt
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build Changed Dockerfiles'
+  entrypoint: '/bin/bash'
+  args:
+    - '-c'
+    - |
+      for DIR in $(cat /workspace/changed_dirs.txt); do
+        docker build -t australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$DIR:$SHORT_SHA $DIR
+        docker push australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$DIR:$SHORT_SHA
+      done
