@@ -31,7 +31,7 @@ jobs:
           done
 
   helm-install:
-    needs: build-and-push
+    needs: build-images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
