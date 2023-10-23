@@ -22,7 +22,7 @@ steps:
       - "-c"
       - |
         source /workspace/env_vars.txt
-        /workspace/detect_changes.sh > /workspace/changed_dirs.txt
+        git diff --name-only $PREVIOUS_COMMIT_SHA $COMMIT_SHA > /workspace/changed_files.txt
 
   - name: "gcr.io/cloud-builders/docker"
     id: "Build Changed Dockerfiles"
