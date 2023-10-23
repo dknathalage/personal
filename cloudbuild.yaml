@@ -6,7 +6,7 @@ steps:
     - '-c'
     - |
       git log --pretty=format:'%H' -n 2 > /workspace/commits.txt
-      PREVIOUS_COMMIT_SHA=$(sed -n '2p' /workspace/commits.txt)
+      export PREVIOUS_COMMIT_SHA=$(sed -n '2p' /workspace/commits.txt)
       echo "PREVIOUS_COMMIT_SHA=$PREVIOUS_COMMIT_SHA" >> /workspace/env_vars.txt
 
 - name: 'gcr.io/cloud-builders/git'
@@ -15,7 +15,7 @@ steps:
   args:
     - '-c'
     - |
-      COMMIT_SHA=$(git rev-parse HEAD)
+      export COMMIT_SHA=$(git rev-parse HEAD)
       echo "COMMIT_SHA=$COMMIT_SHA" >> /workspace/env_vars.txt
 
 - name: 'ubuntu'
