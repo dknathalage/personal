@@ -30,7 +30,9 @@ steps:
     args:
       - "-c"
       - |
-        for DIR in $(cat /workspace/changed_dirs.txt); do
-          docker build -t australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$DIR:$SHORT_SHA $DIR
-          docker push australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$DIR:$SHORT_SHA
+        for dir in $(cat /workspace/changed_dirs.txt); do
+          cd $dir
+          docker build -t gcr.io/$PROJECT_ID/$dir:$COMMIT_SHA .
+          docker push gcr.io/$PROJECT_ID/$dir:$COMMIT_SHA
+          cd ..
         done
