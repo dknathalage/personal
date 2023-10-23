@@ -17,8 +17,8 @@ steps:
       - "-c"
       - |
         for dir in $(cat /workspace/changed_dirs.txt); do
-          cd $dir
+          cd services/$dir
           docker build -t gcr.io/$PROJECT_ID/$dir:$COMMIT_SHA .
           docker push gcr.io/$PROJECT_ID/$dir:$COMMIT_SHA
-          cd ..
+          cd ../../
         done
