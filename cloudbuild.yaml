@@ -1,9 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/git'
-  id: 'Fetch Repository'
-  args: ['fetch', 'origin', 'master']
-
-- name: 'gcr.io/cloud-builders/git'
   id: 'Get Previous Commit'
   entrypoint: '/bin/bash'
   args:
