@@ -5,24 +5,8 @@ steps:
     args:
       - "-c"
       - |
-        git log --pretty=format:'%H' -n 2 > /workspace/commits.txt
-        echo "PREVIOUS_COMMIT_SHA=$(sed -n '2p' /workspace/commits.txt)" >> /workspace/env_vars.txt
-
-  - name: "gcr.io/cloud-builders/git"
-    id: "Get Current Commit"
-    entrypoint: "/bin/bash"
-    args:
-      - "-c"
-      - echo "COMMIT_SHA=$(git rev-parse HEAD)" >> /workspace/env_vars.txt
-
-  - name: "ubuntu"
-    id: "Detect Changes"
-    entrypoint: "/bin/bash"
-    args:
-      - "-c"
-      - |
-        source /workspace/env_vars.txt
-        git diff --name-only $PREVIOUS_COMMIT_SHA $COMMIT_SHA > /workspace/changed_files.txt
+        CHANGED_DIRS=$(git diff --name-only HEAD~1 HEAD | grep services | cut -d "/" -f 2 | uniq)
+        echo $CHANGED_DIRS > /workspace/changed_dirs.txt
 
   - name: "gcr.io/cloud-builders/docker"
     id: "Build Changed Dockerfiles"
