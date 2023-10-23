@@ -1,4 +1,7 @@
 steps:
+  - name: gcr.io/cloud-builders/git
+    args: [fetch, --depth=2]
+
   - name: "gcr.io/cloud-builders/git"
     id: "Get Previous Commit"
     entrypoint: "/bin/bash"
