@@ -37,24 +37,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
+      - uses: google-github-actions/setup-gcloud
         with:
-          version: "1.18.8"
-
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: "3.3.0"
-
-      # login to gke cluster
-      - name: Login to GKE
-        uses: google-github-actions/auth@v0.2.0
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT }}
-          export_default_credentials: true
 
-      # print kubectl context
-      - name: Print kubectl context
-        run: kubectl config current-context
+      - uses: google-github-actions/get-gke-credentials
+        with:
+          cluster_name: workload-cluster
+          location: ${{ secrets.GCP_REGION }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Print system pods
+        run: |
+          kubectl get pods -n kube-system
