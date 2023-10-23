@@ -1,8 +1,8 @@
 name: "CICD Pipeline"
 on:
   push:
-    paths:
-      - "services/**"
+    # paths:
+    #   - "services/**"
     branches:
       - main
 
