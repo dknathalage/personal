@@ -5,8 +5,7 @@ steps:
     args:
       - "-c"
       - |
-        CHANGED_DIRS=$(git diff --name-only HEAD~1 HEAD | grep services | cut -d "/" -f 2 | uniq)
-        echo $CHANGED_DIRS > /workspace/changed_dirs.txt
+        echo $(git diff --name-only HEAD~1 HEAD | grep services | cut -d "/" -f 2 | uniq) > /workspace/changed_dirs.txt
 
   - name: "gcr.io/cloud-builders/docker"
     id: "Build Changed Dockerfiles"
