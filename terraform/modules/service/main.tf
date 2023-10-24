@@ -1,12 +1,28 @@
 resource "google_cloudbuild_trigger" "build-trigger" {
   name        = "${var.name}-build-trigger"
   description = "Trigger for ${var.name} service"
+  location    = "australia-southeast1"
 
-  trigger_template {
-    branch_name = "main"
-    repo_name   = var.gcp_repo
-    project_id  = var.gcp_project
+  #   trigger_template {
+  #     branch_name = "main"
+  #     project_id  = var.gcp_project
+  #     dir         = "services/${var.name}"
+  #     # repo_name   = var.gcp_repo
+  #   }
+
+  github {
+    owner = "Kushan-Nilanga"
+    name  = "personal"
+    push {
+      branch = "main"
+    }
   }
+
+  included_files = [
+    "services/${var.name}/**",
+    "services/${var.name}/Dockerfile",
+    "services/${var.name}/cloudbuild.yaml",
+  ]
 
   build {
     step {
