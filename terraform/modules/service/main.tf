@@ -38,6 +38,10 @@ resource "google_cloudbuild_trigger" "build-trigger" {
         "--namespace", "${var.namespace_name}",
         "--set", "image.tag=$COMMIT_SHA"
       ]
+      env = [
+        "CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a",
+        "CLOUDSDK_CONTAINER_CLUSTER=workload-cluster"
+      ]
     }
   }
 }

@@ -72,5 +72,4 @@ autoscaling:
 nodeSelector: {}
 
 tolerations: []
-
 affinity: {}
