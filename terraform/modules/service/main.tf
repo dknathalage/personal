@@ -39,7 +39,11 @@ resource "google_cloudbuild_trigger" "build-trigger" {
         "--set", "image.tag=$COMMIT_SHA"
       ]
       env = [
-      "KUBECONFIG=/workspace/.kube/config"]
+        "KUBECONFIG=/workspace/.kube/config",
+        "CLOUDSDK_COMPUTE_REGION=australia-southeast1",
+        "CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a",
+        "CLOUDSDK_CONTAINER_CLUSTER=workload-cluster",
+      ]
     }
   }
 }
