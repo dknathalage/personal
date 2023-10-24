@@ -26,7 +26,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
   build {
     step {
       name = "gcr.io/cloud-builders/docker"
-      args = ["build", "-t", "australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA", "-f", "services/${var.name}/Dockerfile", "."]
+      args = "cd services/${var.name} && docker build -t australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA ."
     }
     step {
       name = "gcr.io/cloud-builders/docker"
