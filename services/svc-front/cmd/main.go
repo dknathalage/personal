@@ -6,7 +6,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hello World from svc-front! This is a test for the CI/CD pipeline.",
+			"message": "Hello World from svc-front! This is a test for the CI/CD pipel",
 		})
 	})
 	router.Run(":80")
