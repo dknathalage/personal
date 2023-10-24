@@ -3,13 +3,6 @@ resource "google_cloudbuild_trigger" "build-trigger" {
   description = "Trigger for ${var.name} service"
   location    = "australia-southeast1"
 
-  #   trigger_template {
-  #     branch_name = "main"
-  #     project_id  = var.gcp_project
-  #     dir         = "services/${var.name}"
-  #     # repo_name   = var.gcp_repo
-  #   }
-
   github {
     owner = "Kushan-Nilanga"
     name  = "personal"
@@ -26,7 +19,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
   build {
     step {
       name = "gcr.io/cloud-builders/docker"
-      args = "cd services/${var.name} && docker build -t australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA ."
+      args = ["build", "-t", "australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA", ".", "-f", "services/${var.name}/Dockerfile"]
     }
     step {
       name = "gcr.io/cloud-builders/docker"
@@ -40,9 +33,5 @@ variable "name" {
 }
 
 variable "gcp_project" {
-  type = string
-}
-
-variable "gcp_repo" {
   type = string
 }
