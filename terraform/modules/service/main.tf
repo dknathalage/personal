@@ -40,6 +40,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       ]
       env = [
         "CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a",
+        "CLOUDSDK_COMPUTE_REGION=australia-southeast1",
         "CLOUDSDK_CONTAINER_CLUSTER=workload-cluster"
       ]
     }
