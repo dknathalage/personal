@@ -1,7 +1,8 @@
 FROM golang:alpine AS builder
 WORKDIR /app
 COPY . .
-RUN go build /app/cmd/main.go
+RUN go mod tidy
+RUN go build ./cmd/main.go
 
 FROM alpine
 WORKDIR /app
