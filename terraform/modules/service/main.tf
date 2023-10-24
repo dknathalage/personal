@@ -27,6 +27,17 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       dir  = "services/${var.name}"
       args = ["push", "australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA"]
     }
+    step {
+      # use helm to reploy
+      name = "gcr.io/cloud-builders-community/helm"
+      dir  = "services/${var.name}"
+      args = [
+        "upgrade",
+        "--install", "${var.name}", "../../../config/service",
+        "--namespace", "${var.namespace_name}",
+        "--set", "image.tag=$COMMIT_SHA"
+      ]
+    }
   }
 }
 
@@ -35,5 +46,9 @@ variable "name" {
 }
 
 variable "gcp_project" {
+  type = string
+}
+
+variable "namespace_name" {
   type = string
 }
