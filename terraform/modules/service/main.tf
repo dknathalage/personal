@@ -18,8 +18,9 @@ resource "google_cloudbuild_trigger" "build-trigger" {
 
   build {
     step {
-      name = "gcr.io/cloud-builders/docker"
-      args = ["bash", "-c", "ls -la"]
+      name       = "gcr.io/cloud-builders/docker"
+      entrypoint = "/bin/bash"
+      args       = ["bash", "-c", "ls -la"]
     }
     step {
       name = "gcr.io/cloud-builders/docker"
