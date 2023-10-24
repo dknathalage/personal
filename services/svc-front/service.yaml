@@ -7,8 +7,7 @@ replicaCount: 1
 image:
   repository: australia-southeast1-docker.pkg.dev/personal-gke-workload/personal-workload-images/svc-front
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""

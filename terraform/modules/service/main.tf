@@ -29,7 +29,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
     }
     step {
       # use helm to reploy
-      name = "gcr.io/cloud-builders-community/helm"
+      name = "gcr.io/${var.gcp_project}/cloud-builders-helm"
       dir  = "services/${var.name}"
       args = [
         "upgrade",
