@@ -20,6 +20,5 @@ steps:
           cd services/$dir
           docker build -t australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$dir:$COMMIT_SHA .
           docker push australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/$dir:$COMMIT_SHA
-          gcloud builds submit --config cloudbuild.yaml .
           cd ../../
         done
