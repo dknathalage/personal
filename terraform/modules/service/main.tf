@@ -20,16 +20,16 @@ resource "google_cloudbuild_trigger" "build-trigger" {
     step {
       name = "gcr.io/cloud-builders/docker"
       dir  = "services/${var.name}"
-      args = ["build", "-t", "australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA", "."]
+      args = ["build", "-t", "australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/${var.name}:$COMMIT_SHA", "."]
     }
     step {
       name = "gcr.io/cloud-builders/docker"
       dir  = "services/${var.name}"
-      args = ["push", "australia-southeast1-docker.pkg.dev/${var.gcp_project}/personal-workload-images/${var.name}:$COMMIT_SHA"]
+      args = ["push", "australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/${var.name}:$COMMIT_SHA"]
     }
     step {
       # use helm to reploy
-      name = "gcr.io/$PROJECT_ID/helm"
+      name = "australia-southeast1-docker.pkg.dev/$PROJECT_ID/personal-workload-images/helm"
       args = [
         "upgrade",
         "--install", "${var.name}", "./config/service",
@@ -53,10 +53,6 @@ resource "local_file" "generated_md" {
 }
 
 variable "name" {
-  type = string
-}
-
-variable "gcp_project" {
   type = string
 }
 
