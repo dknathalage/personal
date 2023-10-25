@@ -30,11 +30,10 @@ resource "google_cloudbuild_trigger" "build-trigger" {
     step {
       # use helm to reploy
       name = "gcr.io/$PROJECT_ID/helm"
-      dir  = "services/${var.name}"
       args = [
         "upgrade",
-        "--install", "${var.name}", "/config/service",
-        "--values", "service.yaml",
+        "--install", "${var.name}", "./config/service",
+        "--values", "./services/${var.name}/service.yaml",
         "--namespace", "${var.namespace_name}",
         "--set", "image.tag=$COMMIT_SHA"
       ]
