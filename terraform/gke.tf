@@ -1,23 +1,25 @@
 resource "google_container_cluster" "default" {
   name     = "workload-cluster"
-  location = local.gcp_region
+  location = local.node_locations[0]
 
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  node_locations = local.node_locations
+  node_locations = []
 }
 
 resource "google_container_node_pool" "default" {
   name     = "workload-pool"
-  location = local.gcp_region
+  location = local.node_locations[0]
   cluster  = google_container_cluster.default.name
 
-  node_locations = local.node_locations
+  node_locations = [
+    local.node_locations[0]
+  ]
 
   initial_node_count = 1
   autoscaling {
-    min_node_count = 0
+    min_node_count = 1
     max_node_count = 2
   }
 

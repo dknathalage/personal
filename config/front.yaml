@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: australia-southeast1-docker.pkg.dev/personal-gke-workload/personal-workload-images/svc-front
+  repository: australia-southeast1-docker.pkg.dev/personal-gke-workload/personal-workload-images/front
   pullPolicy: IfNotPresent
   tag: "latest"
 
