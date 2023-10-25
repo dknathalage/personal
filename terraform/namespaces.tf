@@ -1,6 +1,7 @@
-module "namespace1" {
-  source      = "./modules/namespace"
-  name        = "namespace1"
-  labels      = { "env" = "prod" }
-  annotations = { "env" = "prod" }
+resource "kubernetes_namespace" "namespace1" {
+  metadata {
+    annotations = { "env" = "prod" }
+    labels      = { "env" = "prod" }
+    name        = "namespace1"
+  }
 }
