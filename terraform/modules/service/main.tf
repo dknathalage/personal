@@ -33,7 +33,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       dir  = "services/${var.name}"
       args = [
         "upgrade",
-        "--install", "${var.name}", "../../../config/service",
+        "--install", "${var.name}", "/config/service",
         "--values", "service.yaml",
         "--namespace", "${var.namespace_name}",
         "--set", "image.tag=$COMMIT_SHA"
