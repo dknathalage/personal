@@ -33,7 +33,7 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       args = [
         "upgrade",
         "--install", "${var.name}", "./config/service",
-        "--values", "./services/${var.name}.yaml",
+        "--values", "./config/${var.name}.yaml",
         "--namespace", "${var.namespace_name}",
         "--set", "image.tag=$COMMIT_SHA"
       ]
@@ -44,11 +44,6 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       ]
     }
   }
-}
-
-resource "local_file" "generated_md" {
-  filename = "../services/${var.name}/Overview.md"
-  content  = "> generated content. do not edit!"
 }
 
 variable "name" {
